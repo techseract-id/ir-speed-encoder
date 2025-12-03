@@ -2,8 +2,7 @@
 #include <LiquidCrystal_I2C.h>
 
 // Inisialisasi LCD I2C (alamat 0x27, 16 kolom, 2 baris)
-// Jika tidak bekerja, coba alamat 0x3F
-LiquidCrystal_I2C lcd(0x27, 20, 4);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 const int ENCODER_PIN = 2;
 
@@ -13,7 +12,7 @@ unsigned long lastTimeRPM = 0;
 float currentRPM = 0;
 
 volatile unsigned long lastInterruptTime = 0;
-const unsigned long DEBOUNCE_TIME = 500;  // Waktu debounce dalam microseconds
+const unsigned long DEBOUNCE_TIME = 500;
 
 volatile long pulseCount = 0;
 long lastPulseCount = 0;
@@ -57,14 +56,11 @@ void loop() {
     Serial.print(currentRPM, 2);
     Serial.println(" RPM");
     
-    // Tampilkan data ke LCD
     lcd.clear();
-    
     // Baris 1: Pulse Count
     lcd.setCursor(0, 0);
     lcd.print("Pulse: ");
     lcd.print(pulseInInterval);
-    
     // Baris 2: RPM
     lcd.setCursor(0, 1);
     lcd.print("RPM: ");
